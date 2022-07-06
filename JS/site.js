@@ -1,26 +1,49 @@
-// write a function to get the elements by id 
-function getElementsById() {
-    var stringInput = document.getElementById('stringInput');
-    var btnSubmit = document.getElementById('btnSubmit');
-    var alert = document.getElementById('alert');
+// get user input
+function getValue() {
+
+  document.getElementById("alert").classList.add("invisible");
+  // get user string for page
+  let userString = document.getElementById('stringInput').value;
+  // check for palindrome
+  let returnObj = checkForPalindrome(userString);
+  // display message to user
+  displayMessage(returnObj);
+
+}
+
+// check if string is palindrome 
+function checkForPalindrome(userString) {
+
+  // user input is set to lower case
+  userString = userString.toLowerCase();
+
+  let regex = /[^a-z0-9]/gi;
+  userString = userString.replace(regex, "");
+
+  let reverseArray = [];
+
+  let returnObj = {};
+
+  for (let index = userString.length - 1; index >= 0; index--) {
+    reverseArray += userString[index];
+  }
+
+  if (reverseArray == userString) {
+    returnObj.msg = "Nicely Done! You Entered A Palindrome";
+  } else {
+    returnObj.msg = "The Word Sentance, Or Phrase Is Not A Palindrome";
+  }
+
+  returnObj.reversed = reverseArray;
+
+  return returnObj;
 }
 
 
+// display a message to the string
+function displayMessage(returnObj) {
 
-function reverseString() {
-  
-    // write a function for a for loop from the start Char to the End Char that will reverse the the chars
-
-    //  write validation for inaccurate chars !# etc.
-
-    // write validation for a matching chars backwards
-}
-
-
-
-// write a function to display a string 
-function displayInput() {
-  // write code to that reveals the alert id from invisible to visible
-
-
+  document.getElementById("alert-header").innerHTML = returnObj.msg;
+  document.getElementById("message").innerHTML = `Your Phrase Reversed Is ${returnObj.reversed}`;
+  document.getElementById("alert").classList.remove("invisible");
 }
